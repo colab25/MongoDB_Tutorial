@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/Plu457/MongoDB_Tutorial#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
