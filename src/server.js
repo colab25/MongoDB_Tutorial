@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import { userRouter } from './routes/userRouter';
 
 import config from './config/key';
 
@@ -12,20 +13,16 @@ const server = async () => {
       .connect(config.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
       })
       .then(() => console.log('MongoDB Connected...'))
       .catch(err => console.log(err));
+
+    mongoose.set('debug', true);
+
     app.use(express.json());
-
-    app.get('/user', (req, res) => {
-      return res.send({ users: users });
-    });
-
-    app.post('/user', (req, res) => {
-      const { name, age } = req.body;
-      users.push({ name, age });
-      return res.send({ success: true });
-    });
+    app.use('/user', userRouter);
 
     app.listen(PORT, () => {
       console.log(`Server listening on port http://localhost:${PORT}`);
